@@ -16,5 +16,13 @@
   "bugs": {
     "url": "https://github.com/andersonRocha091/multidatasource-scaffold/issues"
   },
-  "homepage": "https://github.com/andersonRocha091/multidatasource-scaffold#readme"
+  "homepage": "https://github.com/andersonRocha091/multidatasource-scaffold#readme",
+  "dependencies": {
+    "pg": "^8.2.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^5.21.10"
+  },
+  "devDependencies": {
+    "mocha": "^7.2.0"
+  }
 }
