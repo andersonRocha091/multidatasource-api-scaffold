@@ -18,7 +18,7 @@ describe("Postgres Strategy", function () {
 
   it("Cadastrar Heroi", async function () {
     const result = await context.create(MOCK_HEROI_CADASTRAR);
-    const { nome, poder } = result.dataValues;
+    const { nome, poder } = result;
     assert.deepEqual({ nome, poder }, MOCK_HEROI_CADASTRAR);
   });
 });
