@@ -56,8 +56,7 @@ class Postgres extends ICrud {
     await this._herois.sync();
   }
   async create(item) {
-    const { dataValues } = await this._herois.create(item);
-    return dataValues;
+    return this._herois.create(item, { raw: true });
   }
 
   async read(item = {}) {
