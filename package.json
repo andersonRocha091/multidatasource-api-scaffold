@@ -4,7 +4,7 @@
   "description": "Multi data sourcing is an scaffolding project which aims to provide an initial setup to built applications which gonna consume data from mongo and SQL databases",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha src/tests/*.js"
   },
   "repository": {
     "type": "git",
