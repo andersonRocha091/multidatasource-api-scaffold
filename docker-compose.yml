@@ -11,6 +11,8 @@ services:
     image: postgres
     ports:
       - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: anderson
       POSTGRES_PASSWORD: anderson
@@ -38,3 +40,5 @@ services:
     ports:
       - "3000:3000"
     restart: always
+volumes:
+  pgdata:
