@@ -12,6 +12,7 @@ class MongoDB extends ICrud {
     super();
     this._herois = null;
     this._driver = null;
+    this.defineModel();
   }
 
   /**
@@ -24,7 +25,7 @@ class MongoDB extends ICrud {
     const state = STATUS[this._driver.readyState];
     if (state === "Connected") return state;
     if (state !== "Connecting") return state;
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise(resolve => setTimeout(resolve, 3000));
     return STATUS[this._driver.readyState];
   }
 
@@ -66,11 +67,8 @@ class MongoDB extends ICrud {
   }
 
   async create(item) {
-    const resultCadastrar = await model.create({
-      nome: "Batman",
-      poder: "Dinheiro",
-    });
-    console.log("resultCadastrar", resultCadastrar);
+    const resultCadastrar = await this._herois.create(item);
+    return resultCadastrar;
   }
 }
 
