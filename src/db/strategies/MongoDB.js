@@ -12,7 +12,6 @@ class MongoDB extends ICrud {
     super();
     this._herois = null;
     this._driver = null;
-    this.defineModel();
   }
 
   /**
@@ -64,11 +63,11 @@ class MongoDB extends ICrud {
     );
     this._driver = Mongoose.connection;
     this._driver.once("open", () => console.log("database rodando"));
+    this.defineModel();
   }
 
-  async create(item) {
-    const resultCadastrar = await this._herois.create(item);
-    return resultCadastrar;
+  create(item) {
+    return this._herois.create(item);
   }
 }
 

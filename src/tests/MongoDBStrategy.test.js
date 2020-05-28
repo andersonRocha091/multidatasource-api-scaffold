@@ -21,8 +21,7 @@ describe("MongoDB test suit", function () {
   });
 
   it("MongoDB inserting new item", async () => {
-    const result = await context.create(MOCK_HEROI_CADASTRAR);
-    const { nome, poder } = result;
+    const { nome, poder } = await context.create(MOCK_HEROI_CADASTRAR);
     assert.deepEqual({ nome, poder }, MOCK_HEROI_CADASTRAR);
   });
 });
