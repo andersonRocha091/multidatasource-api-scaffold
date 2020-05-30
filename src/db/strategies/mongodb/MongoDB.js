@@ -55,7 +55,6 @@ class MongoDB extends ICrud {
     return this._schema.find(item).skip(skip).limit(limit);
   }
   update(id, item) {
-    console.log("id: ", id);
     return this._schema.updateOne({ _id: id }, { $set: item });
   }
 

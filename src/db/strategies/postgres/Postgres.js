@@ -24,6 +24,7 @@ class Postgres extends ICrud {
       dialect: "postgres",
       quoteIdentifiers: false,
       operatorAliases: false,
+      logging: false,
     });
     return connection;
   }
