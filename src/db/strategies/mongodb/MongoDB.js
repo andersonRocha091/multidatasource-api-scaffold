@@ -1,4 +1,4 @@
-const ICrud = require("./interfaces/InterfaceCrud");
+const ICrud = require("../interfaces/InterfaceCrud");
 const Mongoose = require("mongoose");
 const STATUS = {
   0: "Disconected",
@@ -8,10 +8,10 @@ const STATUS = {
 };
 
 class MongoDB extends ICrud {
-  constructor() {
+  constructor(connection, schema) {
     super();
-    this._herois = null;
-    this._driver = null;
+    this._schema = schema;
+    this._connection = connection;
   }
 
   /**
@@ -21,33 +21,14 @@ class MongoDB extends ICrud {
    * 3: disconnecting
    */
   async isConnected() {
-    const state = STATUS[this._driver.readyState];
+    const state = STATUS[this._connection.readyState];
     if (state === "Connected") return state;
     if (state !== "Connecting") return state;
     await new Promise(resolve => setTimeout(resolve, 3000));
-    return STATUS[this._driver.readyState];
+    return STATUS[this._connection.readyState];
   }
 
-  defineModel() {
-    const heroeSchema = new Mongoose.Schema({
-      nome: {
-        type: String,
-        required: true,
-      },
-      poder: {
-        type: String,
-        required: true,
-      },
-      insertedAt: {
-        type: Date,
-        default: new Date(),
-      },
-    });
-
-    this._herois = Mongoose.model("heroes", heroeSchema);
-  }
-
-  connect() {
+  static connect() {
     Mongoose.connect(
       "mongodb://anderson:anderson@localhost:27017/heroes",
       {
@@ -61,25 +42,25 @@ class MongoDB extends ICrud {
         console.log("Falha na conexão", error);
       }
     );
-    this._driver = Mongoose.connection;
-    this._driver.once("open", () => console.log("database rodando"));
-    this.defineModel();
+    const connection = Mongoose.connection;
+    connection.once("open", () => console.log("database rodando"));
+    return connection;
   }
 
   create(item) {
-    return this._herois.create(item);
+    return this._schema.create(item);
   }
 
   read(item, skip = 0, limit = 10) {
-    return this._herois.find(item).skip(skip).limit(limit);
+    return this._schema.find(item).skip(skip).limit(limit);
   }
   update(id, item) {
     console.log("id: ", id);
-    return this._herois.updateOne({ _id: id }, { $set: item });
+    return this._schema.updateOne({ _id: id }, { $set: item });
   }
 
   delete(id) {
-    return this._herois.deleteOne({ _id: id });
+    return this._schema.deleteOne({ _id: id });
   }
 }
 
