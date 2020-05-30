@@ -13,7 +13,7 @@ const MOCK_HEROI_ATUALIZAR = {
   poder: "Velocidade",
 };
 let MOCK_HEROI_ATUALIZAR_ID = "";
-describe.only("MongoDB test suit", function () {
+describe("MongoDB test suit", function () {
   this.timeout(15000);
   this.beforeAll(async () => {
     const connection = MongoDB.connect();
