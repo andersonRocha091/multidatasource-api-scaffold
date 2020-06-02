@@ -2,7 +2,7 @@ const assert = require("assert");
 const api = require("../Api");
 let app = {};
 
-describe("Api Test Suit", function () {
+describe.only("Api Test Suit", function () {
   this.beforeAll(async () => {
     app = await api;
   });

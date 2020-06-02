@@ -1,3 +1,4 @@
+const joi = require("joi");
 const BaseRoute = require("./base/BaseRoute");
 
 class HeroRoutes extends BaseRoute {
@@ -9,19 +10,24 @@ class HeroRoutes extends BaseRoute {
     return {
       path: "/heroes",
       method: "GET",
+      config: {
+        validate: {
+          failAction: (request, headers, erro) => {
+            throw erro;
+          },
+          query: {
+            skip: joi.number().integer().default(0),
+            limit: joi.number().integer().default(10),
+            name: joi.string().min(3).max(100),
+          },
+        },
+      },
       handler: (request, headers) => {
         try {
           const { skip, limit, name } = request.query;
           let query = {};
           if (name) {
             query.nome = name;
-          }
-
-          if (isNaN(skip)) {
-            throw Error(`Incorrect skip=${skip} type, it must be Int`);
-          }
-          if (isNaN(limit)) {
-            throw Error(`Incorrect limit=${limit} type, it must be Int`);
           }
           return this.db.read(query, parseInt(skip), parseInt(limit));
         } catch (error) {
