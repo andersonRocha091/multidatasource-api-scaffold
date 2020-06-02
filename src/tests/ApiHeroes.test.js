@@ -19,7 +19,7 @@ describe.only("Api Test Suit", function () {
   });
 
   it("List /heroes - must return only 10 records", async () => {
-    const TAMANHO_LIMITE = 10;
+    const LIMIT_SIZE = 10;
     const result = await app.inject({
       method: "GET",
       url: `/heroes?skip=0&limit=${TAMANHO_LIMITE}`,
