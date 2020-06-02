@@ -25,11 +25,8 @@ class HeroRoutes extends BaseRoute {
       handler: (request, headers) => {
         try {
           const { skip, limit, name } = request.query;
-          let query = {};
-          if (name) {
-            query.nome = name;
-          }
-          return this.db.read(query, parseInt(skip), parseInt(limit));
+          const query = { nome: { $regex: `.*${name}*.` } };
+          return this.db.read(name ? query : {}, skip, limit);
         } catch (error) {
           return "Erro interno no servidor";
         }

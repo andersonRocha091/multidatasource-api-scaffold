@@ -13,6 +13,7 @@ describe.only("Api Test Suit", function () {
       url: "/heroes?skip=0&limit=10",
     });
     const dados = JSON.parse(result.payload);
+
     const statusCode = result.statusCode;
     assert.deepEqual(statusCode, 200);
     assert.ok(Array.isArray(dados));
@@ -37,8 +38,14 @@ describe.only("Api Test Suit", function () {
       method: "GET",
       url: `/heroes?skip=0&limit=${LIMIT_SIZE}`,
     });
-
-    assert.deepEqual(result.payload, "Erro interno no servidor");
+    const erroResult = {
+      statusCode: 400,
+      error: "Bad Request",
+      message: 'child "limit" fails because ["limit" must be a number]',
+      validation: { source: "query", keys: ["limit"] },
+    };
+    assert.deepEqual(result.statusCode, 400);
+    assert.deepEqual(result.payload, JSON.stringify(erroResult));
   });
 
   it("List /heroes - must filter by name", async () => {
