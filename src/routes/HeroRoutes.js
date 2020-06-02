@@ -12,11 +12,19 @@ class HeroRoutes extends BaseRoute {
       handler: (request, headers) => {
         try {
           const { skip, limit, name } = request.query;
-          let query = !name ? {} : { name };
+          let query = {};
+          if (name) {
+            query.nome = name;
+          }
 
+          if (isNaN(skip)) {
+            throw Error(`Incorrect skip=${skip} type, it must be Int`);
+          }
+          if (isNaN(limit)) {
+            throw Error(`Incorrect limit=${limit} type, it must be Int`);
+          }
           return this.db.read(query, parseInt(skip), parseInt(limit));
         } catch (error) {
-          console.log("DEU RUIM", error);
           return "Erro interno no servidor";
         }
       },
