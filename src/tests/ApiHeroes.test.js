@@ -2,7 +2,7 @@ const assert = require("assert");
 const api = require("../Api");
 let app = {};
 
-describe.only("Api Test Suit", function () {
+describe("Api Test Suit", function () {
   this.beforeAll(async () => {
     app = await api;
   });
@@ -18,8 +18,8 @@ describe.only("Api Test Suit", function () {
     assert.ok(Array.isArray(dados));
   });
 
-  it("List /heroes - must return only 10 records", async () => {
-    const LIMIT_SIZE = 10;
+  it("List /heroes - must return only 3 records", async () => {
+    const LIMIT_SIZE = 3;
     const result = await app.inject({
       method: "GET",
       url: `/heroes?skip=0&limit=${LIMIT_SIZE}`,
@@ -27,10 +27,10 @@ describe.only("Api Test Suit", function () {
     const dados = JSON.parse(result.payload);
     const statusCode = result.statusCode;
     assert.deepEqual(statusCode, 200);
-    assert.ok(dados.length === 10);
+    assert.ok(dados.length === LIMIT_SIZE);
   });
 
-  it("List /heroes - must return error", async () => {
+  it("List /heroes - must return error when limit is invalid", async () => {
     const LIMIT_SIZE = "AEEE";
 
     const result = await app.inject({
@@ -38,7 +38,6 @@ describe.only("Api Test Suit", function () {
       url: `/heroes?skip=0&limit=${LIMIT_SIZE}`,
     });
 
-    const statusCode = result.statusCode;
     assert.deepEqual(result.payload, "Erro interno no servidor");
   });
 
