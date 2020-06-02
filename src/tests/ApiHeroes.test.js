@@ -2,7 +2,7 @@ const assert = require("assert");
 const api = require("../Api");
 let app = {};
 
-describe("Api Test Suit", function () {
+describe.only("Api Test Suit", function () {
   this.beforeAll(async () => {
     app = await api;
   });
@@ -16,5 +16,17 @@ describe("Api Test Suit", function () {
     const statusCode = result.statusCode;
     assert.deepEqual(statusCode, 200);
     assert.ok(Array.isArray(dados));
+  });
+
+  it("List /heroes - must return only 10 records", async () => {
+    const TAMANHO_LIMITE = 10;
+    const result = await app.inject({
+      method: "GET",
+      url: `/heroes?skip=0&limit=${TAMANHO_LIMITE}`,
+    });
+    const dados = JSON.parse(result.payload);
+    const statusCode = result.statusCode;
+    assert.deepEqual(statusCode, 200);
+    assert.ok(dados.length === 10);
   });
 });
