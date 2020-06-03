@@ -1,8 +1,12 @@
 const assert = require("assert");
 const api = require("../Api");
 let app = {};
+const MOCK_HERO_CADASTRAR = {
+  nome: "Chapolin Colorado",
+  poder: "Marreta Bionica",
+};
 
-describe("Api Test Suit", function () {
+describe.only("Api Test Suit", function () {
   this.beforeAll(async () => {
     app = await api;
   });
@@ -59,5 +63,18 @@ describe("Api Test Suit", function () {
     const statusCode = result.statusCode;
     assert.deepEqual(statusCode, 200);
     assert.ok(dados[0].nome === NAME);
+  });
+
+  it("Cadastrar POST - /Heroes", async () => {
+    const result = await app.inject({
+      method: "POST",
+      url: "/heroes",
+      payload: MOCK_HERO_CADASTRAR,
+    });
+    const statusCode = result.statusCode;
+    const { message, _id } = JSON.parse(result.payload);
+    assert.ok(statusCode === 200);
+    assert.notStrictEqual(_id, undefined);
+    assert.deepEqual(message, "Hero inserted successfully");
   });
 });
