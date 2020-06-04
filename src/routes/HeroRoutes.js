@@ -1,4 +1,5 @@
 const joi = require("joi");
+const boom = require("boom");
 
 const BaseRoute = require("./base/BaseRoute");
 const failAction = (request, headers, erro) => {
@@ -30,7 +31,7 @@ class HeroRoutes extends BaseRoute {
           const query = { nome: { $regex: `.*${name}*.` } };
           return this.db.read(name ? query : {}, skip, limit);
         } catch (error) {
-          return "Erro interno no servidor";
+          return boom.internal();
         }
       },
     };
@@ -58,8 +59,7 @@ class HeroRoutes extends BaseRoute {
             _id: result._id,
           };
         } catch (error) {
-          console.log("deu ruim", erro);
-          return "Internal Error";
+          return boom.internal();
         }
       },
     };
@@ -90,15 +90,12 @@ class HeroRoutes extends BaseRoute {
 
           const result = await this.db.update(id, dados);
           if (result.nModified !== 1)
-            return {
-              message: "Cant update hero",
-            };
+            return boom.preconditionFailed("Cant update hero");
           return {
             message: "Hero updated successfully",
           };
         } catch (error) {
-          console.log("DEU RUIM", error);
-          return "Erro interno!";
+          return boom.internal();
         }
       },
     };
@@ -121,14 +118,14 @@ class HeroRoutes extends BaseRoute {
           const { id } = request.params;
           const result = await this.db.delete(id);
           if (result.n !== 1) {
-            return { message: "Can't remove Hero" };
+            return boom.preconditionFailed("Id Not Found");
           }
 
           return {
             message: "Hero removed successfully",
           };
         } catch (error) {
-          console.log("Deu Ruim", error);
+          return boom.internal();
         }
       },
     };

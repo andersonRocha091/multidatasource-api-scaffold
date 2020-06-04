@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/andersonRocha091/multidatasource-scaffold#readme",
   "dependencies": {
+    "boom": "^7.3.0",
     "hapi": "^18.1.0",
     "joi": "^14.3.1",
     "mongoose": "^5.9.16",

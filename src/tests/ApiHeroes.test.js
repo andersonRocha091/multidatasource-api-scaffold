@@ -1,5 +1,6 @@
 const assert = require("assert");
 const api = require("../Api");
+
 let app = {};
 const MOCK_HERO_CADASTRAR = {
   nome: "Chapolin Colorado",
@@ -29,7 +30,6 @@ describe.only("Api Test Suit", function () {
       url: "/heroes?skip=0&limit=10",
     });
     const dados = JSON.parse(result.payload);
-
     const statusCode = result.statusCode;
     assert.deepEqual(statusCode, 200);
     assert.ok(Array.isArray(dados));
@@ -95,6 +95,7 @@ describe.only("Api Test Suit", function () {
     const expected = {
       poder: "super mira",
     };
+
     const result = await app.inject({
       method: "PATCH",
       url: `/heroes/${_id}`,
@@ -110,20 +111,25 @@ describe.only("Api Test Suit", function () {
 
   it("Update Object Partially /heroes/:id - incorrect id not update", async () => {
     const _id = `5ed71b39f5b82cecc4b7e197`;
-    const expected = {
+    const updatedAttribute = {
       poder: "super mira",
     };
     const result = await app.inject({
       method: "PATCH",
       url: `/heroes/${_id}`,
-      payload: JSON.stringify(expected),
+      payload: JSON.stringify(updatedAttribute),
     });
+
+    const expected = {
+      statusCode: 412,
+      error: "Precondition Failed",
+      message: "Cant update hero",
+    };
 
     const statusCode = result.statusCode;
     const dados = JSON.parse(result.payload);
-
-    assert.ok(statusCode === 200);
-    assert.deepEqual(dados.message, "Cant update hero");
+    assert.ok(statusCode === 412);
+    assert.deepEqual(expected, dados);
   });
 
   it("Delete DELETE /heroes/:id", async () => {
@@ -132,6 +138,7 @@ describe.only("Api Test Suit", function () {
       method: "DELETE",
       url: `/heroes/${_id}`,
     });
+
     const statusCode = result.statusCode;
     const dados = JSON.parse(result.payload);
 
