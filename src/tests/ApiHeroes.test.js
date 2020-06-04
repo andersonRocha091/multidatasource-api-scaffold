@@ -12,7 +12,7 @@ const MOCK_HERO_INITIAL = {
   poder: "mira",
 };
 let MOCK_ID = "";
-describe.only("Api Test Suit", function () {
+describe("Api Test Suit", function () {
   this.beforeAll(async () => {
     app = await api;
     const result = await app.inject({
@@ -144,5 +144,39 @@ describe.only("Api Test Suit", function () {
 
     assert.ok(statusCode === 200);
     assert.deepEqual(dados.message, "Hero removed successfully");
+  });
+
+  it("Delete DELETE /heroes/:id - invalid id", async () => {
+    const _id = `5ed71b39f5b82cecc4b7e197`;
+    const result = await app.inject({
+      method: "DELETE",
+      url: `/heroes/${_id}`,
+    });
+    const expected = {
+      statusCode: 412,
+      error: "Precondition Failed",
+      message: "Id Not Found",
+    };
+    const statusCode = result.statusCode;
+    const dados = JSON.parse(result.payload);
+
+    assert.ok(statusCode === 412);
+    assert.deepEqual(expected, dados);
+  });
+
+  it("Delete DELETE /heroes/:id - do not remove data it causes excepection", async () => {
+    const _id = `ID_INVALIDO`;
+    const result = await app.inject({
+      method: "DELETE",
+      url: `/heroes/${_id}`,
+    });
+    const expected = {
+      error: "Internal Server Error",
+      message: "An internal server error occurred",
+      statusCode: 500,
+    };
+    const dados = JSON.parse(result.payload);
+
+    assert.deepEqual(expected, dados);
   });
 });
