@@ -125,4 +125,17 @@ describe.only("Api Test Suit", function () {
     assert.ok(statusCode === 200);
     assert.deepEqual(dados.message, "Cant update hero");
   });
+
+  it("Delete DELETE /heroes/:id", async () => {
+    const _id = MOCK_ID;
+    const result = await app.inject({
+      method: "DELETE",
+      url: `/heroes/${_id}`,
+    });
+    const statusCode = result.statusCode;
+    const dados = JSON.parse(result.payload);
+
+    assert.ok(statusCode === 200);
+    assert.deepEqual(dados.message, "Hero removed successfully");
+  });
 });
