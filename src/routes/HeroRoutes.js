@@ -45,7 +45,7 @@ class HeroRoutes extends BaseRoute {
           failAction,
           payload: {
             nome: joi.string().required().min(3).max(100),
-            poder: joi.string().required().min(2).max(20),
+            poder: joi.string().required().min(2).max(100),
           },
         },
       },
@@ -60,6 +60,44 @@ class HeroRoutes extends BaseRoute {
         } catch (error) {
           console.log("deu ruim", erro);
           return "Internal Error";
+        }
+      },
+    };
+  }
+
+  update() {
+    return {
+      path: "/heroes/{id}",
+      method: "PATCH",
+      config: {
+        validate: {
+          params: {
+            id: joi.string().required(),
+          },
+          payload: {
+            nome: joi.string().min(3).max(100),
+            poder: joi.string().min(2).max(100),
+          },
+        },
+      },
+      handler: async request => {
+        try {
+          const { id } = request.params;
+          const { payload } = request;
+          const dadosString = JSON.stringify(payload);
+          const dados = JSON.parse(dadosString);
+
+          const result = await this.db.update(id, dados);
+          if (result.nModified !== 1)
+            return {
+              message: "Cant update hero",
+            };
+          return {
+            message: "Hero updated successfully",
+          };
+        } catch (error) {
+          console.log("DEU RUIM", error);
+          return "Erro interno!";
         }
       },
     };
