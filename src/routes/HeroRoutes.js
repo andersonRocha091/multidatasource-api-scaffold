@@ -1,4 +1,4 @@
-const joi = require("joi");
+const joi = require("@hapi/joi");
 const boom = require("boom");
 
 const BaseRoute = require("./base/BaseRoute");
@@ -15,14 +15,14 @@ class HeroRoutes extends BaseRoute {
     return {
       path: "/heroes",
       method: "GET",
-      config: {
+      options: {
         validate: {
           failAction,
-          query: {
+          query: joi.object({
             skip: joi.number().integer().default(0),
             limit: joi.number().integer().default(10),
             name: joi.string().min(3).max(100),
-          },
+          }),
         },
       },
       handler: (request, headers) => {
@@ -41,13 +41,13 @@ class HeroRoutes extends BaseRoute {
     return {
       path: "/heroes",
       method: "POST",
-      config: {
+      options: {
         validate: {
           failAction,
-          payload: {
+          payload: joi.object({
             nome: joi.string().required().min(3).max(100),
             poder: joi.string().required().min(2).max(100),
-          },
+          }),
         },
       },
       handler: async request => {
@@ -69,16 +69,17 @@ class HeroRoutes extends BaseRoute {
     return {
       path: "/heroes/{id}",
       method: "PATCH",
-      config: {
+      options: {
+        tags: ["api"],
         validate: {
           failAction,
-          params: {
+          params: joi.object({
             id: joi.string().required(),
-          },
-          payload: {
+          }),
+          payload: joi.object({
             nome: joi.string().min(3).max(100),
             poder: joi.string().min(2).max(100),
-          },
+          }),
         },
       },
       handler: async request => {
@@ -105,12 +106,12 @@ class HeroRoutes extends BaseRoute {
     return {
       path: "/heroes/{id}",
       method: "DELETE",
-      config: {
+      options: {
         validate: {
           failAction,
-          params: {
+          params: joi.object({
             id: joi.string().required(),
-          },
+          }),
         },
       },
       handler: async request => {

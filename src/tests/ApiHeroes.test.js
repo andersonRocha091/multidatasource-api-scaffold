@@ -57,7 +57,7 @@ describe("Api Test Suit", function () {
     const erroResult = {
       statusCode: 400,
       error: "Bad Request",
-      message: 'child "limit" fails because ["limit" must be a number]',
+      message: '"limit" must be a number',
       validation: { source: "query", keys: ["limit"] },
     };
     assert.deepEqual(result.statusCode, 400);
