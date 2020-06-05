@@ -11,13 +11,20 @@ const MOCK_HERO_INITIAL = {
   nome: "Gavião arqueiro",
   poder: "mira",
 };
+const TOKEN =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkxleEx1dGhvciIsImlkIjoxLCJpYXQiOjE1OTEzMTgxNDR9.10qS7Bt-tt0KR3aogMPdoAGl_dd-3KPuR0TA0DyvqY8";
 let MOCK_ID = "";
+const headers = {
+  Authorization: TOKEN,
+};
+
 describe("Api Test Suit", function () {
   this.beforeAll(async () => {
     app = await api;
     const result = await app.inject({
       method: "POST",
       url: "/heroes",
+      headers,
       payload: JSON.stringify(MOCK_HERO_INITIAL),
     });
     const { _id } = JSON.parse(result.payload);
@@ -28,6 +35,7 @@ describe("Api Test Suit", function () {
     const result = await app.inject({
       method: "GET",
       url: "/heroes?skip=0&limit=10",
+      headers,
     });
     const dados = JSON.parse(result.payload);
     const statusCode = result.statusCode;
@@ -40,6 +48,7 @@ describe("Api Test Suit", function () {
     const result = await app.inject({
       method: "GET",
       url: `/heroes?skip=0&limit=${LIMIT_SIZE}`,
+      headers,
     });
     const dados = JSON.parse(result.payload);
     const statusCode = result.statusCode;
@@ -53,6 +62,7 @@ describe("Api Test Suit", function () {
     const result = await app.inject({
       method: "GET",
       url: `/heroes?skip=0&limit=${LIMIT_SIZE}`,
+      headers,
     });
     const erroResult = {
       statusCode: 400,
@@ -70,6 +80,7 @@ describe("Api Test Suit", function () {
     const result = await app.inject({
       method: "GET",
       url: `/heroes?skip=0&limit=${LIMIT_SIZE}&name=${NAME}`,
+      headers,
     });
     const dados = JSON.parse(result.payload);
     const statusCode = result.statusCode;
@@ -82,6 +93,7 @@ describe("Api Test Suit", function () {
       method: "POST",
       url: "/heroes",
       payload: MOCK_HERO_CADASTRAR,
+      headers,
     });
     const statusCode = result.statusCode;
     const { message, _id } = JSON.parse(result.payload);
@@ -99,6 +111,7 @@ describe("Api Test Suit", function () {
     const result = await app.inject({
       method: "PATCH",
       url: `/heroes/${_id}`,
+      headers,
       payload: JSON.stringify(expected),
     });
 
@@ -117,6 +130,7 @@ describe("Api Test Suit", function () {
     const result = await app.inject({
       method: "PATCH",
       url: `/heroes/${_id}`,
+      headers,
       payload: JSON.stringify(updatedAttribute),
     });
 
@@ -137,6 +151,7 @@ describe("Api Test Suit", function () {
     const result = await app.inject({
       method: "DELETE",
       url: `/heroes/${_id}`,
+      headers,
     });
 
     const statusCode = result.statusCode;
@@ -151,6 +166,7 @@ describe("Api Test Suit", function () {
     const result = await app.inject({
       method: "DELETE",
       url: `/heroes/${_id}`,
+      headers,
     });
     const expected = {
       statusCode: 412,
@@ -169,6 +185,7 @@ describe("Api Test Suit", function () {
     const result = await app.inject({
       method: "DELETE",
       url: `/heroes/${_id}`,
+      headers,
     });
     const expected = {
       error: "Internal Server Error",
