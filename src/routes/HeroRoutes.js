@@ -70,7 +70,6 @@ class HeroRoutes extends BaseRoute {
       path: "/heroes/{id}",
       method: "PATCH",
       options: {
-        tags: ["api"],
         validate: {
           failAction,
           params: joi.object({
