@@ -19,7 +19,7 @@ const USER_DB = {
 };
 let contextPg = {};
 
-describe.only("Auth test suite", function () {
+describe("Auth test suite", function () {
   this.timeout(15000);
   this.beforeAll(async () => {
     app = await api;
