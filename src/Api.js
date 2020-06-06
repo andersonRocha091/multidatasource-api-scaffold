@@ -9,6 +9,8 @@ const MongoDB = require("./db/strategies/mongodb/MongoDB");
 const Schema = require("./db/strategies/mongodb/schemes/HeroesSchema");
 const HeroesRoute = require("./routes/HeroRoutes");
 const AuthRoute = require("./routes/AuthRoutes");
+const Postgres = require("./db/strategies/postgres/Postgres");
+const UserSchema = require("./db/strategies/postgres/schemas/UserSchemaPg");
 const JWT_SECRET = "MY_BIG_SECRET_123";
 
 const app = new Hapi.Server({
@@ -22,6 +24,11 @@ function mapRoutes(instance, methods) {
 async function main() {
   const connection = MongoDB.connect();
   const context = new Context(new MongoDB(connection, Schema));
+
+  const pgConnection = await Postgres.connect();
+  const userModel = await Postgres.defineModel(pgConnection, UserSchema);
+  const contextPostgres = new Context(new Postgres(pgConnection, userModel));
+
   const swaggerOptions = {
     info: {
       title: "Test API Documentation",
@@ -61,7 +68,10 @@ async function main() {
   }
   app.route([
     ...mapRoutes(new HeroesRoute(context), HeroesRoute.methods()),
-    ...mapRoutes(new AuthRoute(JWT_SECRET), AuthRoute.methods()),
+    ...mapRoutes(
+      new AuthRoute(JWT_SECRET, contextPostgres),
+      AuthRoute.methods()
+    ),
   ]);
   return app;
 }
