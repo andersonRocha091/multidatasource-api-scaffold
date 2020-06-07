@@ -1,3 +1,14 @@
+const { config } = require("dotenv");
+const { join } = require("path");
+const { ok } = require("assert");
+const env = process.env.NODE_ENV || "dev";
+ok(env === "prod" || env === "dev", "env is invalid, it must be prod, or dev");
+
+const configPath = join(__dirname, "./config", `.env.${env}`);
+config({
+  path: configPath,
+});
+
 const Hapi = require("@hapi/hapi");
 const Vision = require("@hapi/vision");
 const Inert = require("@hapi/inert");
@@ -11,10 +22,10 @@ const HeroesRoute = require("./routes/HeroRoutes");
 const AuthRoute = require("./routes/AuthRoutes");
 const Postgres = require("./db/strategies/postgres/Postgres");
 const UserSchema = require("./db/strategies/postgres/schemas/UserSchemaPg");
-const JWT_SECRET = "MY_BIG_SECRET_123";
+const JWT_SECRET = process.env.JWT_KEY;
 
 const app = new Hapi.Server({
-  port: 5000,
+  port: process.env.PORT,
 });
 
 function mapRoutes(instance, methods) {
@@ -49,9 +60,15 @@ async function main() {
   //Creating auth strategy
   app.auth.strategy("jwt", "jwt", {
     key: JWT_SECRET,
-    validate: (dado, request) => {
-      //Checks if user in database still active
-      //Checks it the user still paying
+    validate: async (dado, request) => {
+      const [result] = await contextPostgres.read({
+        username: dado.username.toLowerCase(),
+      });
+      if (!result) {
+        return {
+          isValid: false,
+        };
+      }
       return {
         isValid: true,
       };

@@ -33,12 +33,31 @@ describe("Auth test suite", function () {
     const result = await app.inject({
       method: "POST",
       url: "/login",
-      payload: USER,
+      payload: {
+        username: "LexLuthor",
+        password: "123",
+      },
     });
 
     const statusCode = result.statusCode;
     const dados = JSON.parse(result.payload);
     assert.deepEqual(statusCode, 200);
     assert.ok(dados.token.length > 10);
+  });
+
+  it("Must return unhauthorized when trying wrong login", async () => {
+    const result = await app.inject({
+      method: "POST",
+      url: "/login",
+      payload: {
+        username: "AndersonRocha",
+        password: "123",
+      },
+    });
+
+    const statusCode = result.statusCode;
+    const dados = JSON.parse(result.payload);
+    assert.deepEqual(statusCode, 401);
+    assert.deepEqual(dados.error, "Unauthorized");
   });
 });
