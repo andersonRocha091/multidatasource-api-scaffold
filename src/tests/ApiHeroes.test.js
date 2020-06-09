@@ -76,7 +76,7 @@ describe("Api Test Suit", function () {
 
   it("List /heroes - must filter by name", async () => {
     const LIMIT_SIZE = 1000;
-    const NAME = "Patolino";
+    const NAME = "Batman";
     const result = await app.inject({
       method: "GET",
       url: `/heroes?skip=0&limit=${LIMIT_SIZE}&name=${NAME}`,

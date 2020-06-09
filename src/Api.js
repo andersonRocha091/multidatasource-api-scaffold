@@ -27,7 +27,7 @@ const JWT_SECRET = process.env.JWT_KEY;
 const app = new Hapi.Server({
   port: process.env.PORT,
 });
-
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 function mapRoutes(instance, methods) {
   return methods.map(method => instance[method]());
 }

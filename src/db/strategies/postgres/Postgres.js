@@ -26,6 +26,7 @@ class Postgres extends ICrud {
       ssl: process.env.SSL_DB,
       dialectOptions: {
         ssl: process.env.SSL_DB,
+        rejectUnauthorized: false,
       },
     });
     return connection;
