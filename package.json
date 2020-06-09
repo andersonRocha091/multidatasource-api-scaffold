@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha src/tests/*.js",
     "test:watch": "mocha src/tests/*.js -w",
-    "test:prod": "cross-env NODE_ENV=prod npm t"
+    "test:prod": "cross-env NODE_ENV=prod npm t",
+    "prod": "cross-env NODE_ENV=prod node src/Api.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
     "@hapi/vision": "^6.0.0",
     "bcrypt": "^4.0.1",
     "boom": "^7.3.0",
+    "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "hapi-auth-jwt2": "^10.1.0",
     "hapi-swagger": "^13.0.2",
