@@ -4,8 +4,8 @@
   "description": "Multi data sourcing is an scaffolding project which aims to provide an initial setup to built applications which gonna consume data from mongo and SQL databases",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --timeout 20000 src/tests/*.js",
-    "test:watch": "mocha src/tests/*.js -w",
+    "test": "nyc --reporter=html mocha --timeout 20000 --exit src/tests/*.js",
+    "test:watch": "nyc mocha src/tests/*.js -w",
     "test:prod": "cross-env NODE_ENV=prod npm t",
     "prod": "cross-env NODE_ENV=prod pm2-runtime src/Api.js"
   },
@@ -39,6 +39,7 @@
     "sequelize": "^5.21.10"
   },
   "devDependencies": {
-    "mocha": "^7.2.0"
+    "mocha": "^7.2.0",
+    "nyc": "^15.1.0"
   }
 }

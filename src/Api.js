@@ -20,6 +20,7 @@ const MongoDB = require("./db/strategies/mongodb/MongoDB");
 const Schema = require("./db/strategies/mongodb/schemes/HeroesSchema");
 const HeroesRoute = require("./routes/HeroRoutes");
 const AuthRoute = require("./routes/AuthRoutes");
+const UtilRoute = require("./routes/UtilRoutes");
 const Postgres = require("./db/strategies/postgres/Postgres");
 const UserSchema = require("./db/strategies/postgres/schemas/UserSchemaPg");
 const JWT_SECRET = process.env.JWT_KEY;
@@ -89,6 +90,7 @@ async function main() {
       new AuthRoute(JWT_SECRET, contextPostgres),
       AuthRoute.methods()
     ),
+    ...mapRoutes(new UtilRoute(), UtilRoute.methods()),
   ]);
   return app;
 }
