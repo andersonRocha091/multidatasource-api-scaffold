@@ -26,6 +26,7 @@ describe("MongoDB test suit", function () {
     const expected = "Connected";
     const { _id } = await context.create(MOCK_HEROI_ATUALIZAR);
     MOCK_HEROI_ATUALIZAR_ID = _id;
+
     assert.deepEqual(result, expected);
   });
 
