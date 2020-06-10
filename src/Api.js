@@ -3,7 +3,7 @@ const { join } = require("path");
 const { ok } = require("assert");
 const env = process.env.NODE_ENV || "dev";
 ok(
-  env === "production" || env === "dev",
+  env === "prod" || env === "dev",
   "env is invalid, it must be production, or dev"
 );
 
