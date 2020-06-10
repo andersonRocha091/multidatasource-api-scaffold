@@ -15,6 +15,7 @@ const MOCK_HEROI_ATUALIZAR = {
 let MOCK_HEROI_ATUALIZAR_ID = "";
 describe("MongoDB test suit", function () {
   this.timeout(15000);
+
   this.beforeAll(async () => {
     const connection = MongoDB.connect();
     context = new Context(new MongoDB(connection, HeroesSchema));
