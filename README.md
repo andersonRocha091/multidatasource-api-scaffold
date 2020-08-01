@@ -69,66 +69,24 @@ This project it's an backbone for API development using multi database source. I
 > - GET /heroes -  header{Authorization:<receivedToken>} (retrieves all heroes)
 > - GET /heroes?skip=<desiredSkip>&limit=<desiredLimit> header{Authorization:<receivedToken>} (heroes with pagination)
 > - GET /heroes?skip=<desiredSkip>&limit=<desiredLimit>&name=<Hero Name> header{Authorization:<receivedToken>} (heroes by name)
-> - PATCH /heroes/:id header{Authorization:<receivedToken>} body:{field1:value1, field2:value2, ...} (Update heroe property)
-> - PATCH /heroes/:id header{Authorization:<receivedToken>} body:{field1:value1, field2:value2, ...} (Update heroe property)
+> - PATCH /heroes/:id header{Authorization:<receivedToken>} body:{field1:value1, field2:value2, ...} (Update a hero property)
 > - DELETE /heroes/:id header{Authorization:<receivedToken>} (delete a hero)
 
 ## Testing
 
-Sua aplicação contempla testes? Se sim, explique como executar os testes automatizados para este sistema; você também pode anexar aqui as capturas de telas (prints) dos testes que você fez ou de um determinado comportamento da aplicação.
+The API was build using TDD and it is fully covered by unit tests. In order to run the TDD tests, just use the following command:
+>```
+> npm run test
+>```
 
-Tipos de testes: 
-- Unitários
-- Performance
-- Segurança
-- Regressão
+## Author
 
-Dentre outros...
-> Exemplo de comando para execução de testes em uma aplicação:
-> ```
-> 	yarn test
-> ```
-
-## Links
-
-Mesmo que as informações possam estar sendo apresentadas no seu código, pode ocorrer de algumas pessoas não terem total entendimento sobre o que foi proposto ou determinados termos técnicos, você pode incluir um resumo dos links mais úteis para leitura dessas termos, por exemplo.
-
-> Exemplo: 
-> - [Guia de Markdown](https://docs.pipz.com/central-de-ajuda/learning-center/guia-basico-de-markdown#open)
-> - [Como formatar o Readme?](https://medium.com/@raullesteves/github-como-fazer-um-readme-md-bonit%C3%A3o-c85c8f154f8#:~:text=md%20%C3%A9%20um%20arquivo%20markdown,tags%20tamb%C3%A9m%20funcionam%2C%20veremos%20adiante.&text=Basta%20copiar%20o%20que%20o,e%20colar%20no%20README.md.)
+> - **Anderson Souza Rocha** - Full-stack developer - [Github](https://github.com/andersonRocha091) 
 
 
-## Contribuições
+## License 
 
-Seu projeto pode receber contribuições da comunidade? Se sim, utilize esse tópico;
-aqui você coloca as informações resumidas de como a pessoa poderá o ajudar com o projeto.
-
-> Exemplo:
-> - Para contribuir com esse projeto, fork este projeto, faça as modificações que tens desejo e crie um pull request; veja as instruções detalhadas no arquivo _CONTRIBUTING.md_.
-
-## Autores
-
-Informe o nome das pessoas envolvidas no desenvolvimento do projeto e se quiser atribua as respectivas redes sociais para contato da comunidade;
-
-> Exemplo (Deste projeto):
-> - **Lucas Anderson Lima** - Idealizador e Escritor da Documentação - [Github](https://github.com/LuAnderson) | [Site](http://lucasanderson.com.br/)
-
-
-## Licença 
-
-Existem vários tipos de licença open souce, para saber qual condiz mais com o seu projeto e até mesmo entender mais detalhadamente, recomendo verificar os tipos no seguinte site: [Escolha uma Licença](http://escolhaumalicenca.com.br/).
-
-> Exemplo: 
-> 
 > MIT License (MIT)
 
-## Agradecimentos 
-
-Aqui, sinta-se a vontade a agradecer quem você desejar, tenha sido uma pessoa que a incentivou no projeto, inspirador, colaborador, amigos, etc.  
-
-> Exemplo: 
-> 
-> Comunidade Front <3
-
 ---
-Autor ❤ [Lucas Anderson Lima](http://lucasanderson.com.br/)
+Autor ❤ [Anderson Souza Rocha]
