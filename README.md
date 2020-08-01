@@ -20,13 +20,25 @@ This project it's an backbone for API development using multi database source. I
 > ```
 > 	cd multidatasource-api-scaffold
 > ```
-> Create a .env file with the following params:
+> Create a .env file with the following params for setting your environment:
 > ```
-> 	asdfasdfasdfasdfasdfasdfasdfasdfasdfasdf
+> MONGO_HOST=<mongo host>
+> MONGO_PORT=<mongo port>
+> MONGO_INITDB_DATABASE=<mongo>
+> MONGO_INITDB_ROOT_USERNAME=<rootunsername>
+> MONGO_INITDB_ROOT_PASSWORD=<rootpassword>
+> DATABASE_USER=<user>
+> DATABASE_PASSWORD=<password>
+> DATABASE_NAME=<databasename>
 > ```
-> Inside the aplication folder install the depencies:
+> Inside the aplication folder src/config, change the params in .env.dev, and .env.prod :
 > ```
-> 	npm i
+> JWT_KEY=<YOUR_JWT_HASH_KEY>
+> PORT=<DESIRED_PORT>
+> SALT_PWD=<DESIRED_SALT>
+> MONGODB_URL=mongodb://<user>:<password>@<mongo host>:<mongo port>/<databasename>
+> POSTGRES_URL=postgres://<user>:<password>@<host | localhost(dev)>/<database> 
+>
 > ```
 
 ## Execução
