@@ -1,6 +1,6 @@
 # Multi data-source API Scaffold
 
-This project it's an backbone for API development using multi database source. It was built in NodeJS 12.8, and it comes with Hapi.js, jwt authentication, base unit test, pm2 monitoring, and the all infra-structure already dockerized for development enviroment tests.
+This project it's an backbone for API development using multi-data source applying strategy pattern. It was built in NodeJS 12.8, and it comes with Hapi.js, jwt authentication, base unit test, pm2 monitoring, and the all infra-structure already dockerized for development enviroment tests.
 
 ## Pre-requirements
 
