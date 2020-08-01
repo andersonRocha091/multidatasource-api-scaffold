@@ -63,6 +63,8 @@ This project it's an backbone for API development using multi-data source applyi
 
 ## Funcionalidades
 
+> Production version running at: https://heroes-api-scaffold.herokuapp.com
+
 > Available endpoints:
 
 > - POST /login  - params {username, password} (returns a token for accessing api endpoints)
