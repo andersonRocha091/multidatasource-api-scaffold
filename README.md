@@ -92,4 +92,4 @@ The API was build using TDD and it is fully covered by unit tests. In order to r
 > MIT License (MIT)
 
 ---
-Autor ❤ Anderson Souza Rocha
+Author ❤ Anderson Souza Rocha
