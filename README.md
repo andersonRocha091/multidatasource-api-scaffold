@@ -59,6 +59,7 @@ This project it's an backbone for API development using multi-data source applyi
 > you would be able to access the aplication endpoints by accessing localhost:<port>/route
 > OBS: As there's not yet an routine to add new users (sorry guys it will come soon), in dev mode you should be able to access the adminer
 > panel listening on localhost:8080, and add an user at user's table (I suggest add a username: LexLuthor and password:123)
+> OBS2: There's also a mongoClient available for local mongodb management by default set in localhost:3000. (Fell free to use compass, or anything else)
 
 ## Funcionalidades
 
