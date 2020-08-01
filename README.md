@@ -56,7 +56,7 @@ This project it's an backbone for API development using multi-data source applyi
 > ```
 >  npm run (dev|prod)
 > ```
-> you would be able to access de aplication endpoints by accessing localhost:<port>/route
+> you would be able to access the aplication endpoints by accessing localhost:<port>/route
 > OBS: As there's not yet an routine to add new users (sorry guys it will come soon), in dev mode you should be able to access the adminer
 > panel listening on localhost:8080, and add an user at user's table (I suggest add a username: LexLuthor and password:123)
 
