@@ -9,7 +9,8 @@
     "test": "nyc --reporter=html mocha --timeout 20000 --exit src/tests/*.js",
     "test:watch": "nyc mocha src/tests/*.js -w",
     "test:prod": "cross-env NODE_ENV=prod npm t",
-    "prod": "cross-env NODE_ENV=prod pm2-runtime src/Api.js"
+    "prod": "cross-env NODE_ENV=prod pm2-runtime src/Api.js",
+    "dev": "cross-env NODE_ENV=dev pm2-runtime src/Api.js"
   },
   "repository": {
     "type": "git",
