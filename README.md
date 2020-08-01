@@ -24,7 +24,7 @@ This project it's an backbone for API development using multi database source. I
 > ```
 > MONGO_HOST=<mongo host>
 > MONGO_PORT=<mongo port>
-> MONGO_INITDB_DATABASE=<mongo>
+> MONGO_INITDB_DATABASE=<mongo database>
 > MONGO_INITDB_ROOT_USERNAME=<rootunsername>
 > MONGO_INITDB_ROOT_PASSWORD=<rootpassword>
 > DATABASE_USER=<user>
@@ -38,37 +38,42 @@ This project it's an backbone for API development using multi database source. I
 > SALT_PWD=<DESIRED_SALT>
 > MONGODB_URL=mongodb://<user>:<password>@<mongo host>:<mongo port>/<databasename>
 > POSTGRES_URL=postgres://<user>:<password>@<host | localhost(dev)>/<database> 
+> ```
+>
+> In terminal, inside multidatasource-api-scaffold start the local infrastructure:
+> ```
+> docker-compose up -d --build
 >
 > ```
+> Finally, install the dependencies:
+>```
+> npm i
+>```
 
-## Execução
+## Execution
 
-Esse é talvez o tópico mais importante, faça com atenção.
-
-Através das informações especificadas nele, outras pessoas poderam visualizar e testar o funcionamento da sua aplicação.
-
-> Exemplo: 
->
-> Após ter configurado o projeto e ter aguardado a instalação das dependencias de desenvolvimento, execute o comando:
+> After setting up the .env's files you can run the api in production or in development mode. 
 > ```
-> 	yarn start
+>  npm run (dev|prod)
 > ```
-> A aplicação estará disponível para visualização em seu navegador, caso isso não aconteça automaticamente abre o navegador no seguinte endereço: _localhost:3000_
+> you would be able to access de aplication endpoints by accessing localhost:<port>/route
+> OBS: As there's not yet an routine to add new users (sorry guys it will come soon), in dev mode you should be able to access the adminer
+> panel listening on localhost:8080, and add an user at user's table (I suggest add a username: LexLuthor and password:123)
 
 ## Funcionalidades
 
-Imagine aqui que outra pessoa configurou e executou o seu projeto, apresente então as principais funcionalidade que seu projeto tem e onde encontrar, dessa forma ela vai conseguir testar e usar tudo o que foi desenvolvido.
+> Available endpoints:
 
-Você ao fazer isso evita que o usuário da aplicação, por não ter conhecimento, pule ou não veja o que seu projeto é capaz de fazer.
+> - POST /login  - params {username, password} (returns a token for accessing api endpoints)
+> - POST /heroes - header{Authorization:<receivedToken>} body:{name:<heroName>, power:<heroPower>} (insert new hero at mongo's database)
+> - GET /heroes -  header{Authorization:<receivedToken>} (retrieves all heroes)
+> - GET /heroes?skip=<desiredSkip>&limit=<desiredLimit> header{Authorization:<receivedToken>} (heroes with pagination)
+> - GET /heroes?skip=<desiredSkip>&limit=<desiredLimit>&name=<Hero Name> header{Authorization:<receivedToken>} (heroes by name)
+> - PATCH /heroes/:id header{Authorization:<receivedToken>} body:{field1:value1, field2:value2, ...} (Update heroe property)
+> - PATCH /heroes/:id header{Authorization:<receivedToken>} body:{field1:value1, field2:value2, ...} (Update heroe property)
+> - DELETE /heroes/:id header{Authorization:<receivedToken>} (delete a hero)
 
-> Exemplo: 
->
-> Este projeto visa a funcionalidade de ser: 
-> - Template de README.md em PORTUGUÊS - PTBR;
-> - Artigo explicando e exemplificando tópicos de documentação;
-
-
-## Testes
+## Testing
 
 Sua aplicação contempla testes? Se sim, explique como executar os testes automatizados para este sistema; você também pode anexar aqui as capturas de telas (prints) dos testes que você fez ou de um determinado comportamento da aplicação.
 
